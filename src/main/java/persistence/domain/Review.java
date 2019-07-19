@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Review {
@@ -11,11 +12,15 @@ public class Review {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	@ManyToOne
+	private User user;
+	@ManyToOne
+	private Game game;
 	private String title;
 	private String content;
-	//private Date date??
 	private int upvotes;
-//	private User user;
+	//private Date date??
+
 	
 	public Review() { }
 
