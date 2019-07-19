@@ -5,12 +5,15 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 
 import exceptions.ReviewNotFoundException;
 import persistence.domain.Review;
 import utils.JsonUtils;
 
 @Default
+@Transactional(value = TxType.SUPPORTS)
 public class ReviewRepositoryImpl implements ReviewRepository {
 
 	@PersistenceContext(unitName = "primary")
@@ -38,6 +41,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public String createReview(String review) {
 		Review r = json.toObj(review, Review.class);
 		manager.persist(r);
@@ -45,6 +49,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public String deleteReview(long id) {
 		Review review = getReviewById(id);
 		manager.remove(review);
@@ -52,6 +57,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	}
 
 	@Override
+	@Transactional(value = TxType.REQUIRED)
 	public String updateReview(long id, String review) {
 		Review rOld = getReviewById(id);
 		Review uNew = json.toObj(review, Review.class);
