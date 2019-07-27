@@ -1,7 +1,9 @@
 package service;
 
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
+import exceptions.UserNotFoundException;
 import persistence.repository.UserRepository;
 
 public class UserServiceImpl implements UserService {
@@ -16,7 +18,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String getUser(long id) {
-		return repo.getUser(id);
+		try {
+			return repo.getUser(id);
+		} catch (UserNotFoundException unfe) {
+			return "{\"error\":\"true\", \"message\":\"No User Found\"}";
+		}
+	}
+	
+	@Override
+	public String verifyUser(String user) {
+		try {
+			return repo.verifyUser(user);
+		} catch (NoResultException nre) {
+			return "{\"error\":\"true\", \"message\":\"No User Found\"}";
+		}
 	}
 
 	@Override

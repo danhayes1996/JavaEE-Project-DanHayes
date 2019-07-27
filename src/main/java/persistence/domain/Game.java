@@ -1,5 +1,6 @@
 package persistence.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,10 +14,14 @@ public class Game {
 	private long id;
 	private String name;
 	private String description;
-	//private Date releaseDate;
 	private String ageRating;
-	
-	public Game() { }
+	@Column(columnDefinition = "integer default 0")
+	private int averageRating;
+	@Column(columnDefinition = "integer default 0")
+	private int numOfRatings;
+
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "game")
+//	private Set<Review> reviews = new HashSet<>();
 
 	public long getId() {
 		return id;
@@ -48,5 +53,30 @@ public class Game {
 
 	public void setAgeRating(String ageRating) {
 		this.ageRating = ageRating;
-	} 
+	}
+
+	public int getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(int averageRating) {
+		this.averageRating = averageRating;
+	}
+
+	public int getNumOfRatings() {
+		return numOfRatings;
+	}
+
+	public void setNumOfRatings(int numOfRatings) {
+		this.numOfRatings = numOfRatings;
+	}
+
+//	public Set<Review> getReviews() {
+//		return reviews;
+//	}
+//
+//	public void setReviews(Set<Review> reviews) {
+//		this.reviews = reviews;
+//	}
+
 }

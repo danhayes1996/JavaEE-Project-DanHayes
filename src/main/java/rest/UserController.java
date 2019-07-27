@@ -6,6 +6,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 import service.UserService;
 
@@ -16,31 +18,38 @@ public class UserController {
 	private UserService service;
 	
 	@GET
-	@Path("/allUsers")
+	@Path("/all")
 	public String getAllUsers() {
 		return service.getAllUsers();
 	}
 
 	@GET
-	@Path("/getUser/{id}")
+	@Path("/get/{id}")
 	public String getUser(@PathParam("id") long id) {
 		return service.getUser(id);
 	}
-
+	
 	@POST
-	@Path("/createUser")
+	@Path("/verify")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String verifyUser(String user) {
+		return service.verifyUser(user);
+	}
+	
+	@POST
+	@Path("/create")
 	public String createUser(String user) {
 		return service.createUser(user);
 	}
 
 	@DELETE
-	@Path("/deleteUser/{id}")
+	@Path("/delete/{id}")
 	public String deleteUser(@PathParam("id") long id) {
 		return service.deleteUser(id);
 	}
 
 	@POST
-	@Path("/updateUser/{id}")
+	@Path("/update/{id}")
 	public String updateUser(@PathParam("id") long id, String user) {
 		return service.updateUser(id, user);
 	}

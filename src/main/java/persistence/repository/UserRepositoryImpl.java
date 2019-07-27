@@ -32,6 +32,15 @@ public class UserRepositoryImpl implements UserRepository {
 		return json.toJson(getUserById(id));
 	}
 	
+	@Override
+	@Transactional(value = TxType.REQUIRED)
+	public String verifyUser(String user) {
+		User u = json.toObj(user, User.class);
+		TypedQuery<Long> query = manager.createQuery("SELECT u.id FROM User u WHERE u.email='" + u.getEmail() 
+											+ "' AND u.password='" + u.getPassword() + "'", Long.class);
+		return json.toJson(query.getSingleResult());
+	}
+	
 	private User getUserById(long id) throws UserNotFoundException {
 		User user = manager.find(User.class, id);
 		if(user == null) {
@@ -39,13 +48,21 @@ public class UserRepositoryImpl implements UserRepository {
 		}
 		return user;
 	}
+	
+	private boolean validAccount(User user) {
+		long count = manager.createQuery("SELECT COUNT(u.id) FROM User u WHERE u.email='" + user.getEmail() + "'", Long.class).getSingleResult();
+		return count == 0;
+	}
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
 	public String createUser(String user) {
 		User u = json.toObj(user, User.class);
-		manager.persist(u);
-		return "{\"message\":\"user successfully added\"}";
+		if(validAccount(u)) {
+			manager.persist(u);
+			return "{\"message\":\"user successfully added\"}";
+		}
+		return "{\"error\": \"true\", \"message\":\"An account has already been created with this email address\"}";
 	}
 
 	@Override
@@ -60,10 +77,10 @@ public class UserRepositoryImpl implements UserRepository {
 	public String updateUser(long id, String user) throws UserNotFoundException {
 		User uOld = getUserById(id);
 		User uNew = json.toObj(user, User.class);
-		uOld.setFirstName(uNew.getFirstName());
-		uOld.setLastName(uNew.getLastName());
-		uOld.setEmail(uNew.getEmail());
-		uOld.setPassword(uNew.getPassword());
+		if(uNew.getFirstName() != null) uOld.setFirstName(uNew.getFirstName());
+		if(uNew.getLastName() != null) uOld.setLastName(uNew.getLastName());
+		if(uNew.getEmail() != null) uOld.setEmail(uNew.getEmail());
+		if(uNew.getPassword() != null) uOld.setPassword(uNew.getPassword());
 		return "{\"message\":\"user successfully updated\"}";
 	}
 }

@@ -8,6 +8,11 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Inject
 	private ReviewRepository repo;
+
+	@Override
+	public String getAllReviews() {
+		return repo.getAllReviews();
+	}
 	
 	@Override
 	public String getReview(long id) {
@@ -28,5 +33,4 @@ public class ReviewServiceImpl implements ReviewService {
 	public String updateReview(long id, String review) {
 		return repo.updateReview(id, review);
 	}
-
 }

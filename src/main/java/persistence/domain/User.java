@@ -16,7 +16,8 @@ public class User {
 	private String email;
 	private String password;
 	
-	public User() { } //needed for JPA
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+//	private Set<Review> reviews = new HashSet<>();
 
 	public long getId() {
 		return id;
@@ -57,4 +58,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+//	public Set<Review> getReviews() {
+//		return reviews;
+//	}
+//
+//	public void setReviews(Set<Review> reviews) {
+//		this.reviews = reviews;
+//	}
+	
 }
