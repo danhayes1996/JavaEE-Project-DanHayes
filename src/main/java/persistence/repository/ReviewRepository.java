@@ -1,10 +1,12 @@
 package persistence.repository;
 
+import exceptions.ReviewNotFoundException;
+
 public interface ReviewRepository {
 
 	public String getAllReviews();
-	public String getReview(long id);
-	public String createReview(String review); //TODO: add User who made review??
-	public String deleteReview(long id);
-	public String updateReview(long id, String review);
+	public String getReview(long id) throws ReviewNotFoundException;
+	public String createReview(String review); 
+	public String deleteReview(long id) throws ReviewNotFoundException;
+	public String updateReview(long id, String review) throws ReviewNotFoundException;
 }

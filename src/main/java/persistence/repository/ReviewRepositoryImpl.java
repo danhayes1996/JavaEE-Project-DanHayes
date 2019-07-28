@@ -50,7 +50,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
-	public String deleteReview(long id) {
+	public String deleteReview(long id) throws ReviewNotFoundException {
 		Review review = getReviewById(id);
 		manager.remove(review);
 		return "{\"message\":\"review successfully deleted\"}";
@@ -58,12 +58,12 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
-	public String updateReview(long id, String review) {
+	public String updateReview(long id, String review) throws ReviewNotFoundException {
 		Review rOld = getReviewById(id);
-		Review uNew = json.toObj(review, Review.class);
-		rOld.setTitle(uNew.getTitle());
-		rOld.setContent(uNew.getContent());
-		rOld.setUpvotes(uNew.getUpvotes());
+		Review rNew = json.toObj(review, Review.class);
+		if(rNew.getTitle() != null) rOld.setTitle(rNew.getTitle());
+		if(rNew.getContent() != null) rOld.setContent(rNew.getContent());
+		rOld.setUpvotes(rNew.getUpvotes());
 		return "{\"message\":\"review successfully updated\"}";
 	}
 }

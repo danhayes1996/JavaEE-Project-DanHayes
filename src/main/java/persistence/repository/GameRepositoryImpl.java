@@ -32,7 +32,7 @@ public class GameRepositoryImpl implements GameRepository {
 
 	@Override
 	@Transactional(value = TxType.SUPPORTS)
-	public String getGame(long id) {
+	public String getGame(long id) throws GameNotFoundException {
 		return json.toJson(getGameById(id));
 	}
 
@@ -58,9 +58,9 @@ public class GameRepositoryImpl implements GameRepository {
 	public String updateGame(long id, String game) throws GameNotFoundException {
 		Game gNew = json.toObj(game, Game.class);
 		Game gOld = getGameById(id);
-		gOld.setName(gNew.getName());
-		gOld.setDescription(gNew.getDescription());
-		gOld.setAgeRating(gNew.getAgeRating());
+		if(gNew.getName() != null) gOld.setName(gNew.getName());
+		if(gNew.getDescription() != null) gOld.setDescription(gNew.getDescription());
+		if(gNew.getAgeRating() != null) gOld.setAgeRating(gNew.getAgeRating());
 		return "{\"message\":\"game successfully updated\"}";
 	}
 

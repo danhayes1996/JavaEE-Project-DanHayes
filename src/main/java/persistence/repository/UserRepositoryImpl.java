@@ -3,6 +3,7 @@ package persistence.repository;
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -34,7 +35,7 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	@Override
 	@Transactional(value = TxType.REQUIRED)
-	public String verifyUser(String user) {
+	public String verifyUser(String user) throws NoResultException {
 		User u = json.toObj(user, User.class);
 		TypedQuery<Long> query = manager.createQuery("SELECT u.id FROM User u WHERE u.email='" + u.getEmail() 
 											+ "' AND u.password='" + u.getPassword() + "'", Long.class);
