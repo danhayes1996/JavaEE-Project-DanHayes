@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			return repo.getUser(id);
 		} catch (UserNotFoundException unfe) {
-			return "{\"error\":\"true\", \"message\":\"No User Found\"}";
+			return "{\"error\":\"true\", \"message\":\"Get User Failed: No User Found\"}";
 		}
 	}
 	
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			return repo.verifyUser(user);
 		} catch (NoResultException nre) {
-			return "{\"error\":\"true\", \"message\":\"No User Found\"}";
+			return "{\"error\":\"true\", \"message\":\"Verify Failed: No User Found\"}";
 		}
 	}
 
@@ -41,11 +41,19 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String deleteUser(long id) {
-		return repo.deleteUser(id);
+		try {
+			return repo.deleteUser(id);
+		} catch (UserNotFoundException unfe) {
+			return "{\"error\":\"true\", \"message\":\"Delete Failed: No User Found\"}";
+		}
 	}
 
 	@Override
 	public String updateUser(long id, String user) {
-		return repo.updateUser(id, user);
+		try {
+			return repo.updateUser(id, user);
+		} catch (UserNotFoundException unfe) {
+			return "{\"error\":\"true\", \"message\":\"Update Failed: No User Found\"}";
+		}
 	}
 }
