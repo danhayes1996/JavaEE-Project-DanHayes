@@ -26,6 +26,12 @@ public class ReviewController {
 	public String getReview(@PathParam("id") long id) {
 		return service.getReview(id);
 	}
+	
+	@GET
+	@Path("/getByGame/{gameId}")
+	public String getReviewByGameId(@PathParam("gameId") long gameId) {
+		return service.getReviewByGameId(gameId);
+	}
 
 	@POST
 	@Path("/create/{userId}/{gameId}")
