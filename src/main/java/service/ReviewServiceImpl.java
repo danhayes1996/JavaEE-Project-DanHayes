@@ -2,7 +2,9 @@ package service;
 
 import javax.inject.Inject;
 
+import exceptions.GameNotFoundException;
 import exceptions.ReviewNotFoundException;
+import exceptions.UserNotFoundException;
 import persistence.repository.ReviewRepository;
 
 public class ReviewServiceImpl implements ReviewService {
@@ -25,8 +27,14 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	@Override
-	public String createReview(String review) {
-		return repo.createReview(review);
+	public String createReview(long userId, long gameId, String review) {
+		try {
+			return repo.createReview(userId, gameId, review);
+		} catch(UserNotFoundException unfe) {
+			return "{\"error\":\"true\", \"message\":\"Create Review Failed: No User Found\"}";
+		} catch (GameNotFoundException gnfe) {
+			return "{\"error\":\"true\", \"message\":\"Create Review Failed: No Game Found\"}";
+		}
 	}
 
 	@Override

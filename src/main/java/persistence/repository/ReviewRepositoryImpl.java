@@ -8,8 +8,12 @@ import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import javax.transaction.Transactional.TxType;
 
+import exceptions.GameNotFoundException;
 import exceptions.ReviewNotFoundException;
+import exceptions.UserNotFoundException;
+import persistence.domain.Game;
 import persistence.domain.Review;
+import persistence.domain.User;
 import utils.JsonUtils;
 
 @Default
@@ -42,9 +46,19 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
 	@Override
 	@Transactional(value = TxType.REQUIRED)
-	public String createReview(String review) {
+	public String createReview(long userId, long gameId, String review) throws GameNotFoundException, UserNotFoundException {
+		User u = manager.find(User.class, userId);
+		Game g = manager.find(Game.class, gameId);
+		
+		if(u == null) throw new UserNotFoundException(userId);
+		if(g == null) throw new GameNotFoundException(gameId);
+		
 		Review r = json.toObj(review, Review.class);
+		
+		r.setUser(u);
+		r.setGame(g);
 		manager.persist(r);
+		
 		return "{\"message\":\"review successfully added\"}";
 	}
 

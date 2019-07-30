@@ -28,9 +28,9 @@ public class ReviewController {
 	}
 
 	@POST
-	@Path("/create")
-	public String createReview(String review) {
-		return service.createReview(review);
+	@Path("/create/{userId}/{gameId}")
+	public String createReview(@PathParam("userId") long userId, @PathParam("gameId") long gameId, String review) {
+		return service.createReview(userId, gameId, review);
 	}
 
 	@DELETE
