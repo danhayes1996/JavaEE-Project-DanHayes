@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Game {
@@ -13,15 +14,13 @@ public class Game {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	private String name;
+	@Lob
+	@Column(columnDefinition="TEXT")
 	private String description;
+	private String imageURL;
 	private String ageRating;
-	@Column(columnDefinition = "integer default 0")
-	private int averageRating;
-	@Column(columnDefinition = "integer default 0")
-	private int numOfRatings;
-
-//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "game")
-//	private Set<Review> reviews = new HashSet<>();
+	private int year;
+	private String company;
 
 	public long getId() {
 		return id;
@@ -55,28 +54,27 @@ public class Game {
 		this.ageRating = ageRating;
 	}
 
-	public int getAverageRating() {
-		return averageRating;
+	public String getImageURL() {
+		return imageURL;
 	}
 
-	public void setAverageRating(int averageRating) {
-		this.averageRating = averageRating;
+	public void setImageURL(String imageURL) {
+		this.imageURL = imageURL;
 	}
 
-	public int getNumOfRatings() {
-		return numOfRatings;
+	public int getYear() {
+		return year;
 	}
 
-	public void setNumOfRatings(int numOfRatings) {
-		this.numOfRatings = numOfRatings;
+	public void setYear(int year) {
+		this.year = year;
 	}
 
-//	public Set<Review> getReviews() {
-//		return reviews;
-//	}
-//
-//	public void setReviews(Set<Review> reviews) {
-//		this.reviews = reviews;
-//	}
+	public String getCompany() {
+		return company;
+	}
 
+	public void setCompany(String company) {
+		this.company = company;
+	}
 }
