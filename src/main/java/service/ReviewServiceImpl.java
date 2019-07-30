@@ -26,6 +26,10 @@ public class ReviewServiceImpl implements ReviewService {
 		}
 	}
 
+	public String getReviewByGameId(long gameId) {
+		return repo.getReviewByGameId(gameId);
+	}
+
 	@Override
 	public String createReview(long userId, long gameId, String review) {
 		try {

@@ -35,6 +35,12 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 	public String getReview(long id) throws ReviewNotFoundException {
 		return json.toJson(getReviewById(id));
 	}
+
+	@Override
+	public String getReviewByGameId(long gameId) {
+		TypedQuery<Review> query = manager.createQuery("SELECT r FROM Review r WHERE r.game=" + gameId, Review.class);
+		return json.toJson(query.getResultList());
+	}
 	
 	private Review getReviewById(long id) throws ReviewNotFoundException {
 		Review review = manager.find(Review.class, id);
