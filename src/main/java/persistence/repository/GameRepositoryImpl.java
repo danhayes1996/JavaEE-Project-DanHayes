@@ -26,7 +26,8 @@ public class GameRepositoryImpl implements GameRepository {
 	@Transactional(value = TxType.SUPPORTS)
 	public String getGames(String name) {
 		TypedQuery<Game> query = manager
-				.createQuery("SELECT g FROM Game g WHERE UPPER(g.name) LIKE UPPER('%" + name + "%')", Game.class);
+							.createQuery("SELECT g FROM Game g WHERE UPPER(g.name) LIKE UPPER('%" + name + "%')", Game.class)
+							.setMaxResults(5);
 		return json.toJson(query.getResultList());
 	}
 
@@ -34,6 +35,15 @@ public class GameRepositoryImpl implements GameRepository {
 	@Transactional(value = TxType.SUPPORTS)
 	public String getGame(long id) throws GameNotFoundException {
 		return json.toJson(getGameById(id));
+	}
+	
+	@Override
+	@Transactional(value = TxType.SUPPORTS)
+	public String getNewReleases() {
+		TypedQuery<Game> query = manager
+				.createQuery("SELECT g FROM Game g ORDER BY g.date DESC", Game.class)
+				.setMaxResults(12);
+		return json.toJson(query.getResultList());
 	}
 
 	@Transactional(value = TxType.SUPPORTS)

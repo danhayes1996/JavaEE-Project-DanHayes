@@ -29,6 +29,13 @@ public class GameController {
 	public String getGame(@PathParam("id") long id) {
 		return service.getGame(id);
 	}
+	
+	@GET
+	@Path("/new")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String getNewReleases() {
+		return service.getNewReleases();
+	}
 
 	@POST
 	@Path("/create")

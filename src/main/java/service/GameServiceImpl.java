@@ -25,6 +25,11 @@ public class GameServiceImpl implements GameService {
 	}
 
 	@Override
+	public String getNewReleases() {
+		return repo.getNewReleases();
+	}
+	
+	@Override
 	public String createGame(String game) {
 		return repo.createGame(game);
 	}

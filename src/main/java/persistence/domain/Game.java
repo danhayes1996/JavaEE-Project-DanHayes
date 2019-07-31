@@ -1,11 +1,15 @@
 package persistence.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Game {
@@ -21,6 +25,9 @@ public class Game {
 	private String ageRating;
 	private int year;
 	private String company;
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	private Date date;
 
 	public long getId() {
 		return id;
@@ -76,5 +83,13 @@ public class Game {
 
 	public void setCompany(String company) {
 		this.company = company;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 }
