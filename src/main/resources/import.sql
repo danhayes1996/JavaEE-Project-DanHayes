@@ -1,6 +1,6 @@
--- INSERT INTO User (firstName, lastName, email, password) VALUES ('Dan', 'Hayes', 'dan@mail.com', 'pass');
--- INSERT INTO User (firstName, lastName, email, password) VALUES ('John', 'Doe', 'john@mail.com', '123');
--- INSERT INTO User (firstName, lastName, email, password) VALUES ('Jane', 'Doe', 'jane@mail.com', 'abc');
+INSERT INTO User (firstName, lastName, email, password) VALUES ('Dan', 'Hayes', 'dan@mail.com', 'pass');
+INSERT INTO User (firstName, lastName, email, password) VALUES ('John', 'Doe', 'john@mail.com', '123');
+INSERT INTO User (firstName, lastName, email, password) VALUES ('Jane', 'Doe', 'jane@mail.com', 'abc');
 
 INSERT INTO Game (name, ageRating, year, company, imageURL, description) VALUES ('Halo 4', '16', 2012, '343 Industries', 'https://media.titanbooks.com/catalog/products/6549/H4_front_cover-4.jpg', 'Halo 4 marks the start of an epic new saga within the award-winning Halo universe. The Master Chief returns in this award-winning first-person shooter developed by 343 Industries. Shipwrecked on a mysterious world, faced with new enemies and deadly technology, the Chief returns to battle against an ancient evil bent on vengeance and annihilation...the universe will never be the same.');
 INSERT INTO Game (name, ageRating, year, company, imageURL, description) VALUES ('Halo 5: Guardians', '16', 2015, '343 Industries', 'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Halo_Guardians.png/220px-Halo_Guardians.png', 'Peace is shattered when colony worlds are unexpectedly attacked. But when humanitys greatest hero goes missing, a new Spartan is tasked with hunting the Master Chief and solving a mystery that threatens the entire galaxy.');

@@ -43,7 +43,7 @@ public class UserController {
 	}
 
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/remove/{id}")
 	public String deleteUser(@PathParam("id") long id) {
 		return service.deleteUser(id);
 	}

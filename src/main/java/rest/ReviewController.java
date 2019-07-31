@@ -40,7 +40,7 @@ public class ReviewController {
 	}
 
 	@DELETE
-	@Path("/delete/{id}")
+	@Path("/remove/{id}")
 	public String deleteReview(@PathParam("id") long id) {
 		return service.deleteReview(id);
 	}
