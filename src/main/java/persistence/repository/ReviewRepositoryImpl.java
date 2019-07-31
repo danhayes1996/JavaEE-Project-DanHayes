@@ -38,7 +38,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 
 	@Override
 	public String getReviewByGameId(long gameId) {
-		TypedQuery<Review> query = manager.createQuery("SELECT r FROM Review r WHERE r.game=" + gameId, Review.class);
+		TypedQuery<Review> query = manager.createQuery("SELECT r FROM Review r WHERE r.game=" + gameId + " ORDER BY r.upvotes DESC", Review.class);
 		return json.toJson(query.getResultList());
 	}
 	
