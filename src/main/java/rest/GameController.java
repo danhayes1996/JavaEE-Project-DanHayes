@@ -1,6 +1,7 @@
 package rest;
 
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -42,7 +43,7 @@ public class GameController {
 		return service.updateGame(id, game);
 	}
 
-	@POST
+	@DELETE
 	@Path("/remove/{id}")
 	public String removeGame(@PathParam("id") long id) {
 		return service.removeGame(id);
