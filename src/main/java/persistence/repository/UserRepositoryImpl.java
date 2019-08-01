@@ -69,6 +69,7 @@ public class UserRepositoryImpl implements UserRepository {
 	@Override
 	@Transactional(value = TxType.REQUIRED)
 	public String deleteUser(long id) throws UserNotFoundException {
+		
 		manager.remove(getUserById(id));
 		return "{\"message\":\"user successfully deleted\"}";
 	}
