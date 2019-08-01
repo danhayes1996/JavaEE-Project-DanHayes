@@ -1,6 +1,5 @@
 package persistence.domain;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,10 +20,9 @@ public class Review {
 	private String content;
 	private int upvotes;
 	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	private User user;
-	
-	@ManyToOne(cascade = CascadeType.REMOVE)
+	@ManyToOne
 	private Game game;
 
 	public long getId() {

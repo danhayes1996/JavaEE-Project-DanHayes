@@ -75,7 +75,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
 		manager.remove(review);
 		return "{\"message\":\"review successfully deleted\"}";
 	}
-
+	
 	@Override
 	@Transactional(value = TxType.REQUIRED)
 	public String updateReview(long id, String review) throws ReviewNotFoundException {
